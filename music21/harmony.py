@@ -1704,13 +1704,16 @@ class ChordSymbol(Harmony):
             pitchFound = False
             degrees = self._degreesList
 
-            for p, degree in zip(pitches, degrees):
+            for degree in degrees:
                 degree = degree.replace('-', '')
                 degree = degree.replace('#', '')
                 degree = degree.replace('A', '')  # A is for 'Altered'
                 if hD.degree == int(degree):
                     # transpose by semitones (positive for up, negative for down)
-                    p = p.transpose(hD.interval)
+                    # Get the pitch
+                    p = pitches[degrees.index(degree)]
+                    # Do the alteration
+                    pitches[degrees.index(degree)] = p.transpose(hD.interval)
                     pitchFound = True
 
                     # for degreeString in self._degreesList:
